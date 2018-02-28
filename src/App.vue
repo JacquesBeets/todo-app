@@ -24,7 +24,8 @@
       class="hidden-md-and-up"></v-toolbar-side-icon>
       <v-toolbar-title>
         <router-link to="/" tag="span" style="cursor:pointer;">
-          Fire Pencil
+        <v-icon>gesture</v-icon>
+          FirePencil
         </router-link>
         </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -51,11 +52,11 @@ export default {
     return {
       sideNav: false,
       menuItems: [
-        {name: 'Todos', icon: 'thumb_up', link: '/todos'},
+        {name: 'Todos', icon: 'done_all', link: '/todos'},
         {name: 'About', icon: 'thumb_up', link: '/about'},
-        {name: 'Register', icon: 'thumb_up', link: '/register'},
-        {name: 'Sign In', icon: 'thumb_up', link: '/signin'},
-        {name: 'Profile', icon: 'thumb_up', link: '/profile'}
+        {name: 'Register', icon: 'create', link: '/register'},
+        {name: 'Sign In', icon: 'vpn_key', link: '/signin'},
+        {name: 'Profile', icon: 'perm_identity', link: '/profile'}
       ]
     }
   },
