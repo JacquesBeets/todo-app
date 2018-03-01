@@ -16,7 +16,8 @@
               class="blue lighten-2 mt-5"
               dark
               large
-              href="/register"
+              router 
+              :to="'/register'"
             >
               Get Started
             </v-btn>
