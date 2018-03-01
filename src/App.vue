@@ -12,9 +12,13 @@
           v-for="menuItem in menuItems" 
           :key="menuItem.name">
           <v-list-tile-action>
-            <v-icon>{{menuItem.icon}}</v-icon>
+            <v-icon>
+              {{menuItem.icon}}
+            </v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>{{menuItem.name}}</v-list-tile-content>
+          <v-list-tile-content>
+            {{menuItem.name}}
+          </v-list-tile-content>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -35,7 +39,9 @@
         :key="menuItem.name"
         router 
         :to="menuItem.name">
-          <v-icon left small>{{menuItem.icon}}</v-icon>
+          <v-icon left small>
+          {{menuItem.icon}}
+          </v-icon>
           {{menuItem.name}}
           </v-btn>
       </v-toolbar-items>
@@ -52,7 +58,6 @@ export default {
   data () {
     return {
       sideNav: false,
-      
     }
   },
   computed: {
@@ -61,7 +66,7 @@ export default {
       }
   },
   methods: {
-    
+
   }
 }
 </script>
