@@ -48,18 +48,20 @@
 
 <script>
 export default {
+  name: 'App',
   data () {
     return {
       sideNav: false,
-      menuItems: [
-        {name: 'Todos', icon: 'done_all', link: '/todos'},
-        {name: 'About', icon: 'thumb_up', link: '/about'},
-        {name: 'Register', icon: 'create', link: '/register'},
-        {name: 'Sign In', icon: 'vpn_key', link: '/signin'},
-        {name: 'Profile', icon: 'perm_identity', link: '/profile'}
-      ]
+      
     }
   },
-  name: 'App'
+  computed: {
+      menuItems (){
+        return this.$store.state.menuItems
+      }
+  },
+  methods: {
+    
+  }
 }
 </script>
