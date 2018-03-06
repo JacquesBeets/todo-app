@@ -59,6 +59,12 @@ export const store = new Vuex.Store({
       const itemId = state.todos[payload.todoListIndex].items.length + 1
       const text = payload.inputValue
       state.todos[payload.todoListIndex].items.push({id: itemId, todo: text, completed: false, edit: false})
+    },
+    newTodoList(state, payload){
+      state.todos.push({
+        title: payload.inputText,
+        items: []
+      })
     }
   },
   actions: {

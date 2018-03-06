@@ -1,5 +1,5 @@
 <template>
-  <v-container grid-list-md>
+    <v-container grid-list-md>
    <v-layout row wrap>
      <v-flex lg4 md6 xs12 v-for="(todoList, index) in todos" :key="index">
        <v-card>
@@ -89,21 +89,29 @@
          </v-list>
        </v-card>
      </v-flex>
+     
+     <new-todo></new-todo>
    </v-layout>
-   <h1>Page Data</h1>
+   
+   <!-- <h1>Page Data</h1>
    <pre>{{this.$data}}</pre>
    <h1>Store Data</h1>
-   <pre>{{this.$store.state.todos}}</pre>
+   <pre>{{this.$store.state.todos}}</pre> -->
   </v-container>
 </template>
 
 
 <script>
+  import NewTodo from '@/components/todos/CreateNewTodo.vue'
+
   export default {
+    components: {
+      'new-todo': NewTodo
+    },
     data() {
     return {
       todoListTitleText: '',
-      todoInput: '',
+      
     }
   },
     computed: {
