@@ -25,6 +25,7 @@
                   label="Todo List Title"
                   hint="What shall we call your new Todo List?"
                   v-model="todoListTitleText"
+                  @keyup.enter="dialog = false, newTodoList()"
                   ></v-text-field>
               </v-flex>
             </v-layout>
@@ -33,7 +34,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false, newTodoList()">Create</v-btn>
+          <v-btn 
+            color="blue darken-1" 
+            flat 
+            @click.native="dialog = false, newTodoList()"
+            >Create</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

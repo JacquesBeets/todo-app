@@ -1,14 +1,14 @@
 <template>
     <v-container grid-list-md>
    <v-layout row wrap>
-     <v-flex lg4 md6 xs12 v-for="(todoList, index) in todos" :key="index">
+     <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="itemObjKey">
        <v-card>
          <v-toolbar color="secondary" dark flat card>
-           <v-toolbar-title>{{todoList.title}}</v-toolbar-title>
+           <v-toolbar-title>{{todoList.title}}{{itemObjKey}}</v-toolbar-title>
            <v-spacer></v-spacer>
           <v-btn 
             icon
-            @click="deleteTodoList(index)">
+            @click="deleteTodoList(itemObjKey)">
             <v-icon>delete</v-icon>
           </v-btn>
          </v-toolbar>
@@ -20,16 +20,16 @@
                placeholder="Enter New Todo"
                onfocus="this.placeholder = ''"
                onblur="this.placeholder = 'Enter New Todo'"
-               @keyup.enter.prevent= "inputText($event, index)"
-               :key="index"
+               @keyup.enter.prevent= "inputText($event, itemObjKey)"
+               :key="itemObjKey"
                >
-              
+
           </form>
-          <v-list-tile avatar v-for="item in todoList.items" :key="item.id">
+          <v-list-tile avatar v-for="(item, index) in todoList.items" :key="index">
             <v-list-tile-action>
               <v-checkbox 
                 color="success" 
-                @click="todoCompleted(index, item.id)" 
+                @click="todoCompleted(itemObjKey, index)" 
                 v-model="item.completed"
                 ></v-checkbox>
             </v-list-tile-action>
@@ -77,7 +77,7 @@
                     small
                     color="error"
                     slot="activator"                    
-                    @click="deleteTodo(index, item.id)"
+                    @click="deleteTodo(itemObjKey, index)"
                   >
                     <v-icon>delete</v-icon>
                   </v-btn>

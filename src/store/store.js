@@ -42,15 +42,15 @@ export const store = new Vuex.Store({
   },
   mutations: {
     todoCompleted (state, payload){
-      const todoItem = state.todos[payload.todoListIndex].items[payload.todoId - 1] 
-      if (!todoItem.completed){
-          todoItem.completed = true
-      } else {
-        todoItem.completed = false
-      }       
+        const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
+        if (!todoItem.completed){
+            todoItem.completed = true
+        } else {
+          todoItem.completed = false
+        }      
     },
     deleteTodo (state, payload){
-        state.todos[payload.todoListIndex].items.splice((payload.todoId - 1), 1)
+        state.todos[payload.todoListIndex].items.splice((payload.todoId), 1)
     },
     deleteTodoList (state, payload){
       state.todos.splice(payload.todoListIndex, 1)
