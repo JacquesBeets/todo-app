@@ -1,12 +1,14 @@
 <template>
   <v-container grid-list-md>
    <v-layout row wrap>
-     <v-flex lg4 md6 xs12 v-for="todoList in todos" :key="todoList.id">
+     <v-flex lg4 md6 xs12 v-for="(todoList, index) in todos" :key="index">
        <v-card>
          <v-toolbar color="secondary" dark flat card>
            <v-toolbar-title>{{todoList.title}}</v-toolbar-title>
            <v-spacer></v-spacer>
-          <v-btn icon>
+          <v-btn 
+            icon
+            @click="deleteTodoList(index)">
             <v-icon>delete</v-icon>
           </v-btn>
          </v-toolbar>
@@ -18,13 +20,16 @@
                placeholder="Enter New Todo"
                onfocus="this.placeholder = ''"
                onblur="this.placeholder = 'Enter New Todo'"
-              >
+               @keyup.enter.prevent= "inputText($event, index)"
+               :key="index"
+               >
+              
           </form>
           <v-list-tile avatar v-for="item in todoList.items" :key="item.id">
             <v-list-tile-action>
               <v-checkbox 
                 color="success" 
-                @click="todoCompleted(todoList.id, item.id)" 
+                @click="todoCompleted(index, item.id)" 
                 v-model="item.completed"
                 ></v-checkbox>
             </v-list-tile-action>
@@ -72,7 +77,7 @@
                     small
                     color="error"
                     slot="activator"                    
-                    
+                    @click="deleteTodo(index, item.id)"
                   >
                     <v-icon>delete</v-icon>
                   </v-btn>
@@ -85,6 +90,9 @@
        </v-card>
      </v-flex>
    </v-layout>
+   <h1>Page Data</h1>
+   <pre>{{this.$data}}</pre>
+   <h1>Store Data</h1>
    <pre>{{this.$store.state.todos}}</pre>
   </v-container>
 </template>
@@ -92,6 +100,12 @@
 
 <script>
   export default {
+    data() {
+    return {
+      todoListTitleText: '',
+      todoInput: '',
+    }
+  },
     computed: {
       todos(){
         return this.$store.state.todos
@@ -99,13 +113,37 @@
       
     },
     methods: {
-      todoCompleted (todoListId, todoId){
+      todoCompleted (todoListIndex, todoId) {
         this.$store.commit({
           type: 'todoCompleted', 
-          todoListId: todoListId, 
+          todoListIndex: todoListIndex, 
           todoId: todoId
-          })        
-        }
+          })       
+        },
+      deleteTodo (todoListIndex, todoId) {
+        this.$store.commit({
+          type: 'deleteTodo', 
+          todoListIndex: todoListIndex, 
+          todoId: todoId
+        })
+      },
+      deleteTodoList (todoListIndex) {
+        this.$store.commit({
+          type: 'deleteTodoList', 
+          todoListIndex: todoListIndex
+        })
+      },
+      inputText (event, todoListIndex) {
+        const inputValue = event.target.value
+          this.$store.commit({
+            type: 'addTodo',
+            inputValue: inputValue,
+            todoListIndex: todoListIndex
+          })
+          event.target.value = ''
+      }
+        
+      
     }
   }
 

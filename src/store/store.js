@@ -15,7 +15,6 @@ export const store = new Vuex.Store({
     ],
     todos:[
       { 
-        id: 1,
         title: 'First Todo List',
         items: [
         {id: 1, todo:'build kick ass web apps!', completed: false, edit: false},
@@ -23,7 +22,6 @@ export const store = new Vuex.Store({
         ]
       },
       { 
-        id: 2,
         title: 'Second Todo List',
         items: [
         {id: 1, todo:'make lots of money!', completed: false, edit: false},
@@ -31,7 +29,6 @@ export const store = new Vuex.Store({
         ]
       },
       {
-        id: 3,
         title: 'Third Todo List',
         items: [
         {id: 1, todo:'tell my baby I love her! everyday!', completed: false, edit: false},
@@ -45,12 +42,23 @@ export const store = new Vuex.Store({
   },
   mutations: {
     todoCompleted (state, payload){
-      const todoItem = state.todos[payload.todoListId - 1].items[payload.todoId - 1] 
+      const todoItem = state.todos[payload.todoListIndex].items[payload.todoId - 1] 
       if (!todoItem.completed){
           todoItem.completed = true
       } else {
         todoItem.completed = false
       }       
+    },
+    deleteTodo (state, payload){
+        state.todos[payload.todoListIndex].items.splice((payload.todoId - 1), 1)
+    },
+    deleteTodoList (state, payload){
+      state.todos.splice(payload.todoListIndex, 1)
+    },
+    addTodo(state, payload){
+      const itemId = state.todos[payload.todoListIndex].items.length + 1
+      const text = payload.inputValue
+      state.todos[payload.todoListIndex].items.push({id: itemId, todo: text, completed: false, edit: false})
     }
   },
   actions: {
