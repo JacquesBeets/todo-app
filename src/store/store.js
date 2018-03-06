@@ -65,6 +65,19 @@ export const store = new Vuex.Store({
         title: payload.inputText,
         items: []
       })
+    },
+    editTodo(state, payload){
+      const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
+      if (!todoItem.edit){
+        todoItem.edit = true
+      } else {
+        todoItem.edit = false
+      }
+    },
+    editTodoText(state, payload){
+      const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
+      todoItem.todo = payload.inputValue
+      todoItem.edit = false
     }
   },
   actions: {

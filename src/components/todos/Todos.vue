@@ -4,7 +4,7 @@
      <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="itemObjKey">
        <v-card>
          <v-toolbar color="secondary" dark flat card>
-           <v-toolbar-title>{{todoList.title}}{{itemObjKey}}</v-toolbar-title>
+           <v-toolbar-title>{{todoList.title}}</v-toolbar-title>
            <v-spacer></v-spacer>
           <v-btn 
             icon
@@ -23,7 +23,6 @@
                @keyup.enter.prevent= "inputText($event, itemObjKey)"
                :key="itemObjKey"
                >
-
           </form>
           <v-list-tile avatar v-for="(item, index) in todoList.items" :key="index">
             <v-list-tile-action>
@@ -35,10 +34,20 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title 
-                v-text="item.todo" 
+                v-text="item.todo"
+                v-show="!item.edit" 
                 v-bind:class="{completedItem: item.completed}"
                 ></v-list-tile-title>
             </v-list-tile-content>
+              <v-list-tile-content>
+                  <input  
+                  type="text"
+                  v-show="item.edit == true"
+                  class="todoInput" 
+                  v-bind:value="item.todo"
+                  @keyup.enter = "editTodoText(itemObjKey, index, $event)"
+                  >
+              </v-list-tile-content>
             <v-list-tile-action>
               <v-speed-dial 
                   direction="left"
@@ -64,7 +73,7 @@
                     small
                     color="info"
                     slot="activator"
-                    
+                    @click="editTodo(itemObjKey, index)"
                   >
                     <v-icon>edit</v-icon>
                   </v-btn>
@@ -94,16 +103,16 @@
    </v-layout>
    
    <!-- <h1>Page Data</h1>
-   <pre>{{this.$data}}</pre>
+   <pre>{{this.$data}}</pre> -->
    <h1>Store Data</h1>
-   <pre>{{this.$store.state.todos}}</pre> -->
+   <pre>{{this.$store.state.todos}}</pre>
   </v-container>
 </template>
 
 
 <script>
   import NewTodo from '@/components/todos/CreateNewTodo.vue'
-
+  
   export default {
     components: {
       'new-todo': NewTodo
@@ -149,9 +158,23 @@
             todoListIndex: todoListIndex
           })
           event.target.value = ''
+      },
+      editTodo(todoListIndex, todoId, event) {
+          this.$store.commit({
+            type: 'editTodo', 
+            todoListIndex: todoListIndex, 
+            todoId: todoId,
+          })
+      },
+      editTodoText(todoListIndex, todoId, event) {
+        const inputValue = event.target.value  
+          this.$store.commit({
+            type: 'editTodoText', 
+            todoListIndex: todoListIndex, 
+            todoId: todoId,
+            inputValue: inputValue
+          })
       }
-        
-      
     }
   }
 
