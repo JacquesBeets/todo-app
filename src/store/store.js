@@ -1,18 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import * as firebase from 'firebase'
 
 Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   strict: true,
   state:{
-    menuItems: [
-      {name: 'Todos', icon: 'done_all', link: '/todos'},
-      {name: 'About', icon: 'thumb_up', link: '/about'},
-      {name: 'Register', icon: 'create', link: '/register'},
-      {name: 'Sign In', icon: 'vpn_key', link: '/signin'},
-      {name: 'Profile', icon: 'perm_identity', link: '/profile'}
-    ],
+    user: null,
     todos:[
       // { 
       //   title: 'First Todo List',
@@ -38,7 +33,9 @@ export const store = new Vuex.Store({
     ]
   },
   getters: {
-    
+    user (state) {
+      return state.user
+    }
   },
   mutations: {
     todoCompleted (state, payload){
@@ -78,9 +75,43 @@ export const store = new Vuex.Store({
       const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
       todoItem.todo = payload.inputValue
       todoItem.edit = false
+    },
+    setUser (state, payload){
+      state.user = payload
     }
   },
   actions: {
-
+    registerUser({commit}, payload){
+      firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
+      .then(
+        user => {
+          const newUser = {
+            id: user.uid
+          }
+          commit('setUser', newUser)
+        }
+      )
+      .catch(
+        error => {
+          console.log(error)
+        }
+      )
+    },
+    signUserIn ({commit}, payload){
+      firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+      .then(
+        user => {
+          const newUser = {
+            id: user.uid
+          }
+          commit('setUser', newUser)
+        }
+      )
+      .catch(
+        error => {
+          console.log(error)
+        }
+      )
+    }
   }
 })

@@ -1,38 +1,108 @@
 <template>
-  <v-app id="inspire">
-    <v-content>
-      <v-container fluid fill-height>
-        <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
-            <v-card class="elevation-12">
-              <v-toolbar dark color="primary">
-                <v-toolbar-title>Login form</v-toolbar-title>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
-                  <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary">Login</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-content>
-  </v-app>
+ <v-container>
+   <v-layout row>
+     <v-flex xs12 sm6 offset-sm3>
+       <v-card>
+         <v-card-text>
+          <v-container>
+            <form @submit.prevent="onRegister">
+              <!-- <v-layout row>
+                <v-flex xs 12>
+                  <v-text-field
+                    label="Name"
+                    v-model="name"
+                    :counter="20"
+                    required
+                  ></v-text-field>
+                </v-flex>
+              </v-layout> -->
+              <v-layout row>
+                <v-flex xs 12>
+                  <v-text-field
+                      name="email"
+                      label="Mail"
+                      id="email"
+                      v-model="email"
+                      type="email"
+                      required
+                      >
+                    </v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs 12>
+                  <v-text-field
+                      name="password"
+                      label="Password"
+                      id="password"
+                      v-model="password"
+                      type="password"
+                      required
+                      >
+                    </v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs 12>
+                  <v-text-field
+                      name="confirmPassword"
+                      label="Confirm Password"
+                      id="confirmPassword"
+                      v-model="confirmPassword"
+                      type="password"
+                      :rules="[comparePasswords]"
+                      >
+                    </v-text-field>
+                </v-flex>
+              </v-layout>
+              <v-layout row>
+                <v-flex xs12>
+                  <v-btn type="submit">Register</v-btn>
+                </v-flex>
+              </v-layout>
+            </form>
+          </v-container>
+        </v-card-text>
+       </v-card>
+     </v-flex>
+   </v-layout>
+ </v-container>
 </template>
 
 <script>
-  export default {
-    data: () => ({
-      drawer: null
-    }),
-    props: {
-      source: String
+export default {
+  data (){
+    return {
+      // name: '',
+      email: '',
+      password:'',
+      confirmPassword: ''
+      
+    }
+  },
+  computed: {
+    comparePasswords (){
+      return this.password !== this.confirmPassword ? 'Passwords does not match' : ''
+    },
+    user (){
+      return this.$store.getters.user
+    }
+  },
+  watch: {
+    user (value) {
+      if(value !== null && value !== undefined){
+        this.$router.push('/')
+      }
+    }
+  },
+  methods: {
+    onRegister (){
+      this.$store.dispatch('registerUser', {
+        // name: this.name,
+        email: this.email,
+        password: this.password
+      })
     }
   }
+}
 </script>

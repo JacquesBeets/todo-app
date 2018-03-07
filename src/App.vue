@@ -58,12 +58,28 @@ export default {
   data () {
     return {
       sideNav: false,
+      
     }
   },
   computed: {
       menuItems (){
-        return this.$store.state.menuItems
+        let menuItems = [
+          {name: 'About', icon: 'thumb_up', link: '/about'},
+          {name: 'Register', icon: 'create', link: '/register'},
+          {name: 'Sign In', icon: 'vpn_key', link: '/signin'}
+        ]
+        if (this.userIsAuthenticated) {
+          menuItems = [
+            {name: 'Todos', icon: 'done_all', link: '/todos'},
+            {name: 'Profile', icon: 'perm_identity', link: '/profile'}
+          ]
+        }
+        return menuItems
+      },
+      userIsAuthenticated (){
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
+
   },
   methods: {
 
