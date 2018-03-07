@@ -14,27 +14,27 @@ export const store = new Vuex.Store({
       {name: 'Profile', icon: 'perm_identity', link: '/profile'}
     ],
     todos:[
-      { 
-        title: 'First Todo List',
-        items: [
-        {id: 1, todo:'build kick ass web apps!', completed: false, edit: false},
-        {id: 2, todo:'bust your but and study hard', completed: true, edit: false}
-        ]
-      },
-      { 
-        title: 'Second Todo List',
-        items: [
-        {id: 1, todo:'make lots of money!', completed: false, edit: false},
-        {id: 2, todo:'live life to the fullest!', completed: false, edit: false}
-        ]
-      },
-      {
-        title: 'Third Todo List',
-        items: [
-        {id: 1, todo:'tell my baby I love her! everyday!', completed: false, edit: false},
-        {id: 2, todo:'wash the dog', completed: false, edit: false}
-        ]
-      },
+      // { 
+      //   title: 'First Todo List',
+      //   items: [
+      //   {id: 1, todo:'build kick ass web apps!', completed: false, edit: false},
+      //   {id: 2, todo:'bust your but and study hard', completed: true, edit: false}
+      //   ]
+      // },
+      // { 
+      //   title: 'Second Todo List',
+      //   items: [
+      //   {id: 1, todo:'make lots of money!', completed: false, edit: false},
+      //   {id: 2, todo:'live life to the fullest!', completed: false, edit: false}
+      //   ]
+      // },
+      // {
+      //   title: 'Third Todo List',
+      //   items: [
+      //   {id: 1, todo:'tell my baby I love her! everyday!', completed: false, edit: false},
+      //   {id: 2, todo:'wash the dog', completed: false, edit: false}
+      //   ]
+      // },
     ]
   },
   getters: {

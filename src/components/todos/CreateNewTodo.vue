@@ -1,6 +1,18 @@
 <template>
   <v-layout row justify-center>
     <v-dialog v-model="dialog" max-width="500px">
+        <v-btn
+          dark
+          fab
+          fixed
+          bottom
+          right
+          color="primary"
+          slot="activator"
+          @click.native.stop="dialog = true"
+        >
+        <v-icon>add</v-icon>
+        </v-btn>
       <v-btn
         dark
         fab

@@ -13,32 +13,32 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
+      name: 'home',
       component: Home
     },
     {
       path: '/about',
-      name: 'About',
+      name: 'about',
       component: About
     },
     {
       path: '/todos',
-      name: 'Todos',
+      name: 'todos',
       component: Todos
     },
     {
       path: '/profile',
-      name: 'Profile',
+      name: 'profile',
       component: Profile
     },
     {
       path: '/register',
-      name: 'Register',
+      name: 'register',
       component: Register
     },
     {
       path: '/signin',
-      name: 'Signin',
+      name: 'signin',
       component: Signin
     }
   ],

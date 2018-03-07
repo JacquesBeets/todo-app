@@ -104,8 +104,8 @@
    
    <!-- <h1>Page Data</h1>
    <pre>{{this.$data}}</pre> -->
-   <h1>Store Data</h1>
-   <pre>{{this.$store.state.todos}}</pre>
+   <!-- <h1>Store Data</h1>
+   <pre>{{this.$store.state.todos}}</pre> -->
   </v-container>
 </template>
 

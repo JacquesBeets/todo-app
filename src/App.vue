@@ -8,8 +8,8 @@
       <v-list>
         <v-list-tile 
           router 
-          :to="menuItem.link"
           v-for="menuItem in menuItems" 
+          :to="menuItem.link"
           :key="menuItem.name">
           <v-list-tile-action>
             <v-icon>
@@ -38,7 +38,7 @@
         flat v-for="menuItem in menuItems" 
         :key="menuItem.name"
         router 
-        :to="menuItem.name">
+        :to="menuItem.link">
           <v-icon left small>
           {{menuItem.icon}}
           </v-icon>
