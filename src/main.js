@@ -5,6 +5,7 @@ import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import {store} from './store/store'
+import AlertCmp from './components/shared/Alert'
 
 Vue.use(Vuetify, {
   theme: {
@@ -19,6 +20,8 @@ Vue.use(Vuetify, {
 })
 
 Vue.config.productionTip = false
+
+Vue.component('app-alert', AlertCmp)
 
 /* eslint-disable no-new */
 new Vue({

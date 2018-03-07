@@ -8,36 +8,31 @@ export const store = new Vuex.Store({
   strict: true,
   state:{
     user: null,
-    todos:[
-      // { 
-      //   title: 'First Todo List',
-      //   items: [
-      //   {id: 1, todo:'build kick ass web apps!', completed: false, edit: false},
-      //   {id: 2, todo:'bust your but and study hard', completed: true, edit: false}
-      //   ]
-      // },
-      // { 
-      //   title: 'Second Todo List',
-      //   items: [
-      //   {id: 1, todo:'make lots of money!', completed: false, edit: false},
-      //   {id: 2, todo:'live life to the fullest!', completed: false, edit: false}
-      //   ]
-      // },
-      // {
-      //   title: 'Third Todo List',
-      //   items: [
-      //   {id: 1, todo:'tell my baby I love her! everyday!', completed: false, edit: false},
-      //   {id: 2, todo:'wash the dog', completed: false, edit: false}
-      //   ]
-      // },
-    ]
+    todos:[],
+    loading: false,
+    error: null
   },
   getters: {
     user (state) {
       return state.user
+    },
+    error (state) {
+      return state.error
+    },
+    loading (state){
+      return state.loading
     }
   },
   mutations: {
+    setLoading (state, payload){
+      state.loading = payload
+    },
+    setError (state, payload){
+      state.error = payload
+    },
+    clearError (state){
+      state.error = null
+    },
     todoCompleted (state, payload){
         const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
         if (!todoItem.completed){
@@ -81,10 +76,16 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    clearError({commit}){
+      commit('clearError')
+    },
     registerUser({commit}, payload){
+      commit('setLoading', true)
+      commit('clearError', true)
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
       .then(
         user => {
+          commit('setLoading', false)
           const newUser = {
             id: user.uid
           }
@@ -93,14 +94,18 @@ export const store = new Vuex.Store({
       )
       .catch(
         error => {
-          console.log(error)
+          commit('setLoading', false)
+          commit('setError', error)
         }
       )
     },
     signUserIn ({commit}, payload){
+      commit('setLoading', true)
+      commit('clearError', true)
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(
         user => {
+          commit('setLoading', false)
           const newUser = {
             id: user.uid
           }
@@ -109,7 +114,8 @@ export const store = new Vuex.Store({
       )
       .catch(
         error => {
-          console.log(error)
+          commit('setLoading', false)
+          commit('setError', error)
         }
       )
     }
