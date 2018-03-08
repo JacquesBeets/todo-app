@@ -37,5 +37,10 @@ new Vue({
         projectId: 'firepenciltodoapp',
         storageBucket: 'firepenciltodoapp.appspot.com'
     })
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$store.dispatch('autoSignIn', user)
+      }
+    })
   }
 })

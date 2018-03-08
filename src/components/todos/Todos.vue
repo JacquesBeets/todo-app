@@ -1,6 +1,16 @@
 <template>
     <v-container grid-list-md>
    <v-layout row wrap>
+     <v-flex xs12 class="text-xs-center">
+        <v-progress-circular 
+          v-if="loading"
+          indeterminate 
+          :size="100" 
+          :width="7" 
+          color="primary"
+          >
+        </v-progress-circular>
+     </v-flex>
      <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="itemObjKey">
        <v-card>
          <v-toolbar color="secondary" dark flat card>
@@ -104,8 +114,8 @@
    
    <!-- <h1>Page Data</h1>
    <pre>{{this.$data}}</pre> -->
-   <!-- <h1>Store Data</h1>
-   <pre>{{this.$store.state.todos}}</pre> -->
+   <h1>Store Data</h1>
+   <pre>{{this.$store.state}}</pre>
   </v-container>
 </template>
 
@@ -127,6 +137,9 @@
       todos(){
         return this.$store.state.todos
       },
+      loading(){
+        return this.$store.getters.loading
+      }
       
     },
     methods: {

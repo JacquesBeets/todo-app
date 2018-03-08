@@ -20,6 +20,22 @@
             {{menuItem.name}}
           </v-list-tile-content>
         </v-list-tile>
+        <v-list-tile 
+            v-if="userIsAuthenticated"
+            router
+            @click="onLogout"
+            key="logout"
+            to="/"
+            >
+          <v-list-tile-action>
+            <v-icon>
+              exit_to_app
+            </v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            Logout
+          </v-list-tile-content>
+        </v-list-tile>
       </v-list>
     </v-navigation-drawer>
     <v-toolbar dark class="primary">
@@ -35,7 +51,8 @@
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn 
-        flat v-for="menuItem in menuItems" 
+        flat 
+        v-for="menuItem in menuItems" 
         :key="menuItem.name"
         router 
         :to="menuItem.link">
@@ -43,6 +60,17 @@
           {{menuItem.icon}}
           </v-icon>
           {{menuItem.name}}
+          </v-btn>
+          <v-btn 
+          flat
+          v-if="userIsAuthenticated"
+          @click="onLogout"
+          to="/"
+          >
+          <v-icon left small>
+            exit_to_app
+          </v-icon>
+            Logout
           </v-btn>
       </v-toolbar-items>
     </v-toolbar>
@@ -82,7 +110,9 @@ export default {
 
   },
   methods: {
-
+    onLogout(){
+      this.$store.dispatch('logout')
+    }
   }
 }
 </script>

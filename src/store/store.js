@@ -52,11 +52,11 @@ export const store = new Vuex.Store({
       const text = payload.inputValue
       state.todos[payload.todoListIndex].items.push({id: itemId, todo: text, completed: false, edit: false})
     },
-    newTodoList(state, payload){
-      state.todos.push({
-        title: payload.inputText,
-        items: []
-      })
+    setLoadedTodos(state, payload){
+      state.todos = payload
+    },
+    newTodoList(state, payload){ //this function might not be necassery
+      state.todos.push(payload)
     },
     editTodo(state, payload){
       const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
@@ -76,6 +76,31 @@ export const store = new Vuex.Store({
     }
   },
   actions: {
+    loadTodos({commit}) {
+      commit('setLoading', true)
+      firebase.database().ref('todos').once('value')
+        .then((data) => {
+          const todos = []
+          const obj = data.val()
+          for (let key in obj){
+            todos.push({
+              id: key,
+              title: obj[key].title,
+              items: obj[key].items,
+              userId: obj[key].userId
+            })
+          }
+          console.log(todos)
+          commit('setLoadedTodos', todos)
+          commit('setLoading', false)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+            commit('setLoading', false)
+          }
+        )
+    },
     clearError({commit}){
       commit('clearError')
     },
@@ -99,13 +124,14 @@ export const store = new Vuex.Store({
         }
       )
     },
-    signUserIn ({commit}, payload){
+    signUserIn ({commit, dispatch}, payload){
       commit('setLoading', true)
       commit('clearError', true)
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(
         user => {
           commit('setLoading', false)
+          dispatch('loadTodos')
           const newUser = {
             id: user.uid
           }
@@ -118,6 +144,30 @@ export const store = new Vuex.Store({
           commit('setError', error)
         }
       )
+    },
+    autoSignIn({commit, dispatch}, payload){
+      commit('setUser', {id: payload.uid})
+      dispatch('loadTodos')
+    },
+    logout({commit}){
+      firebase.auth().signOut()
+      commit('setUser', null)
+    },
+    createNewTodoList({commit, getters}, payload){
+      const newList = {
+        title: payload.inputText,
+        items: [],
+        userId: getters.user.id
+      }
+      firebase.database().ref('todos').push(newList)
+        .then((data) => {
+          console.log(data)
+          const key = data.key
+          commit('newTodoList', newList)
+        })
+        .catch((error) => [
+          console.log(error)
+        ]) 
     }
   }
 })

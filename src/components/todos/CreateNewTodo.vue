@@ -37,7 +37,7 @@
                   label="Todo List Title"
                   hint="What shall we call your new Todo List?"
                   v-model="todoListTitleText"
-                  @keyup.enter="dialog = false, newTodoList()"
+                  @keyup.enter="dialog = false, onCreateNewTodoList()"
                   ></v-text-field>
               </v-flex>
             </v-layout>
@@ -49,7 +49,7 @@
           <v-btn 
             color="blue darken-1" 
             flat 
-            @click.native="dialog = false, newTodoList()"
+            @click.native="dialog = false, onCreateNewTodoList()"
             >Create</v-btn>
         </v-card-actions>
       </v-card>
@@ -67,10 +67,9 @@
       }
     },
     methods: {
-      newTodoList () {
+      onCreateNewTodoList () {
         const inputText = this.todoListTitleText
-          this.$store.commit({
-            type: 'newTodoList', 
+          this.$store.dispatch('createNewTodoList', {
             inputText: inputText
           })
           this.todoListTitleText = ''   
