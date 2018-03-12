@@ -33,30 +33,8 @@ export const store = new Vuex.Store({
     clearError (state){
       state.error = null
     },
-    todoCompleted (state, payload){
-        const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
-        if (!todoItem.completed){
-            todoItem.completed = true
-        } else {
-          todoItem.completed = false
-        }      
-    },
-    deleteTodo (state, payload){
-        state.todos[payload.todoListIndex].items.splice((payload.todoId), 1)
-    },
-    deleteTodoList (state, payload){
-      state.todos.splice(payload.todoListIndex, 1)
-    },
-    addTodo(state, payload){
-      const itemId = state.todos[payload.todoListIndex].items.length + 1
-      const text = payload.inputValue
-      state.todos[payload.todoListIndex].items.push({id: itemId, todo: text, completed: false, edit: false})
-    },
     setLoadedTodos(state, payload){
       state.todos = payload
-    },
-    newTodoList(state, payload){ //this function might not be necassery
-      state.todos.push(payload)
     },
     editTodo(state, payload){
       const todoItem = state.todos[payload.todoListIndex].items[payload.todoId] 
@@ -84,13 +62,12 @@ export const store = new Vuex.Store({
           const obj = data.val()
           for (let key in obj){
             todos.push({
-              id: key,
-              title: obj[key].title,
-              items: obj[key].items,
-              userId: obj[key].userId
+                id: key,
+                title: obj[key].title,
+                items: obj[key].items,
+                userId: obj[key].userId
             })
           }
-          console.log(todos)
           commit('setLoadedTodos', todos)
           commit('setLoading', false)
         })
@@ -100,6 +77,21 @@ export const store = new Vuex.Store({
             commit('setLoading', false)
           }
         )
+    },
+    todoChangedListener({commit}){
+      firebase.database().ref('todos').on('value', function(snapshot){
+        const todos = []
+        const obj = snapshot.val()
+        for (let key in obj){
+          todos.push({
+              id: key,
+              title: obj[key].title,
+              items: obj[key].items,
+              userId: obj[key].userId
+          })
+        }
+        commit('setLoadedTodos', todos)
+      })
     },
     clearError({commit}){
       commit('clearError')
@@ -153,21 +145,75 @@ export const store = new Vuex.Store({
       firebase.auth().signOut()
       commit('setUser', null)
     },
-    createNewTodoList({commit, getters}, payload){
+    addItemInTodoList({commit, dispatch}, payload){
+      const text = payload.inputValue
+      const listKey = payload.todoListKey
+      const newText = {
+        todo: text, 
+        completed: false, 
+        edit: false
+      }
+      firebase.database().ref('todos/' + listKey + '/items').push(newText)
+        .catch((error) => {
+          console.log(error)
+        })
+
+      dispatch('todoChangedListener')
+    },
+    createNewTodoList({commit, dispatch, getters}, payload){
       const newList = {
         title: payload.inputText,
-        items: [],
         userId: getters.user.id
       }
       firebase.database().ref('todos').push(newList)
         .then((data) => {
-          console.log(data)
           const key = data.key
-          commit('newTodoList', newList)
+          dispatch('loadTodos')
         })
-        .catch((error) => [
+        .catch((error) => {
           console.log(error)
-        ]) 
+        }) 
+    },
+    todoCompleted({commit, dispatch}, payload){
+      firebase.database().ref('todos/' + payload.todoListKey + '/items/' + payload.todoIndex + '/completed').once('value')
+      .then((data) => {
+        if (!data.val()){
+          firebase.database().ref('todos/' + payload.todoListKey + '/items/' + payload.todoIndex).update({completed: true})
+          } else {
+            firebase.database().ref('todos/' + payload.todoListKey + '/items/' + payload.todoIndex).update({completed: false})
+        }
+        dispatch('todoChangedListener') 
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    addEditedTodoTextToDb({commit, dispatch}, payload){
+      firebase.database().ref('todos/' + payload.todoListKey + '/items/' + payload.todoIndex).update({todo: payload.inputValue})
+      .then((data) => {
+        
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    deleteTodoList({commit, dispatch}, payload){
+      firebase.database().ref('todos/' + payload).remove()
+      .then((data) => {
+        dispatch('todoChangedListener')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    },
+    deleteTodo({commit, dispatch}, payload){
+      firebase.database().ref('todos/' + payload.todoListKey + '/items/' + payload.todoIndex).remove()
+      .then((data) => {
+        dispatch('todoChangedListener')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
     }
   }
 })

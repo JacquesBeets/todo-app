@@ -11,14 +11,14 @@
           >
         </v-progress-circular>
      </v-flex>
-     <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="itemObjKey">
+     <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="todoList.id">
        <v-card>
          <v-toolbar color="secondary" dark flat card>
            <v-toolbar-title>{{todoList.title}}</v-toolbar-title>
            <v-spacer></v-spacer>
           <v-btn 
             icon
-            @click="deleteTodoList(itemObjKey)">
+            @click="deleteTodoList(todoList.id)">
             <v-icon>delete</v-icon>
           </v-btn>
          </v-toolbar>
@@ -30,15 +30,15 @@
                placeholder="Enter New Todo"
                onfocus="this.placeholder = ''"
                onblur="this.placeholder = 'Enter New Todo'"
-               @keyup.enter.prevent= "inputText($event, itemObjKey)"
-               :key="itemObjKey"
+               @keyup.enter.prevent= "onNewInputText($event, itemObjKey, todoList.id)"
+               :key="todoList.id"
                >
           </form>
           <v-list-tile avatar v-for="(item, index) in todoList.items" :key="index">
             <v-list-tile-action>
               <v-checkbox 
                 color="success" 
-                @click="todoCompleted(itemObjKey, index)" 
+                @click="todoCompleted(todoList.id, index)" 
                 v-model="item.completed"
                 ></v-checkbox>
             </v-list-tile-action>
@@ -55,7 +55,7 @@
                   v-show="item.edit == true"
                   class="todoInput" 
                   v-bind:value="item.todo"
-                  @keyup.enter = "editTodoText(itemObjKey, index, $event)"
+                  @keyup.enter = "editTodoText(itemObjKey, index, $event), addEditedTodoTextToDb(todoList.id, index, $event)"
                   >
               </v-list-tile-content>
             <v-list-tile-action>
@@ -96,7 +96,7 @@
                     small
                     color="error"
                     slot="activator"                    
-                    @click="deleteTodo(itemObjKey, index)"
+                    @click="deleteTodo(todoList.id, index)"
                   >
                     <v-icon>delete</v-icon>
                   </v-btn>
@@ -114,8 +114,8 @@
    
    <!-- <h1>Page Data</h1>
    <pre>{{this.$data}}</pre> -->
-   <h1>Store Data</h1>
-   <pre>{{this.$store.state}}</pre>
+   <!-- <h1>Store Data</h1>
+   <pre>{{this.$store.state}}</pre> -->
   </v-container>
 </template>
 
@@ -143,49 +143,52 @@
       
     },
     methods: {
-      todoCompleted (todoListIndex, todoId) {
-        this.$store.commit({
-          type: 'todoCompleted', 
-          todoListIndex: todoListIndex, 
-          todoId: todoId
+      todoCompleted (todoListKey, todoIndex) {
+        this.$store.dispatch('todoCompleted',{ 
+          todoListKey: todoListKey, 
+          todoIndex: todoIndex
           })       
         },
-      deleteTodo (todoListIndex, todoId) {
-        this.$store.commit({
-          type: 'deleteTodo', 
-          todoListIndex: todoListIndex, 
-          todoId: todoId
-        })
+      deleteTodo (todoListKey, todoIndex) {
+        this.$store.dispatch('deleteTodo',{ 
+          todoListKey: todoListKey, 
+          todoIndex: todoIndex
+          })
       },
-      deleteTodoList (todoListIndex) {
-        this.$store.commit({
-          type: 'deleteTodoList', 
-          todoListIndex: todoListIndex
-        })
+      deleteTodoList (todoListKey) {
+        this.$store.dispatch('deleteTodoList', todoListKey)
       },
-      inputText (event, todoListIndex) {
+      onNewInputText (event, todoListIndex, todoListKey) {
         const inputValue = event.target.value
-          this.$store.commit({
-            type: 'addTodo',
+          this.$store.dispatch('addItemInTodoList', {
             inputValue: inputValue,
-            todoListIndex: todoListIndex
+            todoListIndex: todoListIndex,
+            todoListKey: todoListKey
           })
           event.target.value = ''
       },
-      editTodo(todoListIndex, todoId, event) {
+      editTodo (todoListIndex, todoId, event) {
           this.$store.commit({
             type: 'editTodo', 
             todoListIndex: todoListIndex, 
             todoId: todoId,
           })
       },
-      editTodoText(todoListIndex, todoId, event) {
+      editTodoText (todoListIndex, todoId, event) {
         const inputValue = event.target.value  
           this.$store.commit({
             type: 'editTodoText', 
             todoListIndex: todoListIndex, 
             todoId: todoId,
             inputValue: inputValue
+          })
+      },
+      addEditedTodoTextToDb(todoListKey, todoIndex){
+        const inputValue = event.target.value  
+        this.$store.dispatch('addEditedTodoTextToDb', {
+            inputValue: inputValue,
+            todoIndex: todoIndex,
+            todoListKey: todoListKey
           })
       }
     }
