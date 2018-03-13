@@ -11,6 +11,11 @@
           >
         </v-progress-circular>
      </v-flex>
+     <v-flex xs12 sm6 offset-sm3 class="text-xs-center" v-if="todos == ''">
+       <v-alert type="info" value="true">
+         Add a new Todo List by clicking on the plus icon in the bottom right hand corner.
+       </v-alert>
+     </v-flex>
      <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="todoList.id">
        <v-card>
          <v-toolbar color="secondary" dark flat card>
