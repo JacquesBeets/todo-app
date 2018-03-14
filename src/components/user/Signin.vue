@@ -7,7 +7,7 @@
    </v-layout>
    <v-layout row>
      <v-flex xs12 sm6 offset-sm3>
-       <v-card>
+       <v-card class="mt-5">
          <v-card-text>
           <v-container>
             <form @submit.prevent="onSignin">
@@ -40,11 +40,18 @@
               <v-layout row>
                 <v-flex xs12>
                   <v-btn
+                  class="primary white--text"
                   :loading="loading"
                   :disabled="loading" 
                   type="submit"
                   >
                   Sign In
+                  </v-btn>
+                  <v-btn
+                  class="primary white--text"
+                  :to="'/register'"
+                  >
+                  Register
                   </v-btn>
                 </v-flex>
               </v-layout>

@@ -7,7 +7,7 @@
           fixed
           bottom
           right
-          color="primary"
+          color="primary secondary--text"
           slot="activator"
           @click.native.stop="dialog = true"
         >
@@ -19,7 +19,7 @@
         fixed
         bottom
         right
-        color="primary"
+        color="primary accent--text"
         slot="activator"
         @click.native.stop="dialog = true"
       >
@@ -45,9 +45,9 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+          <v-btn color="primary darken-1" flat @click.native="dialog = false">Close</v-btn>
           <v-btn 
-            color="blue darken-1" 
+            color="primary darken-1" 
             flat 
             @click.native="dialog = false, onCreateNewTodoList()"
             >Create</v-btn>

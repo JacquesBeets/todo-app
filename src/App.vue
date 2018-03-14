@@ -38,13 +38,13 @@
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
-    <v-toolbar dark class="primary">
+    <v-toolbar class="gradient">
       <v-toolbar-side-icon 
       @click.native.stop="sideNav = !sideNav"
       class="hidden-md-and-up"></v-toolbar-side-icon>
-      <v-toolbar-title>
+      <v-toolbar-title class="fontText">
         <router-link to="/" tag="span" style="cursor:pointer;">
-        <v-icon>gesture</v-icon>
+        <v-icon class="iconColor">gesture</v-icon>
           FirePencil
         </router-link>
         </v-toolbar-title>
@@ -99,7 +99,7 @@ export default {
         if (this.userIsAuthenticated) {
           menuItems = [
             {name: 'Todos', icon: 'done_all', link: '/todos'},
-            {name: 'Profile', icon: 'perm_identity', link: '/profile'}
+            // {name: 'Profile', icon: 'perm_identity', link: '/profile'} // Will work on this for future update.
           ]
         }
         return menuItems
@@ -116,3 +116,19 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.gradient{
+  background-image: linear-gradient(to right, #b21f1f, #fdbb2d); 
+  color: whitesmoke;
+}
+
+.iconColor{
+  color:#fdbb2d;
+}
+
+.fontText{
+  font-family: 'Shadows Into Light', cursive;
+}
+
+</style>

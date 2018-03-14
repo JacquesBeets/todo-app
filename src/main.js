@@ -9,13 +9,14 @@ import AlertCmp from './components/shared/Alert'
 
 Vue.use(Vuetify, {
   theme: {
-    primary: '#3f51b5',
-    secondary: '#b0bec5',
-    accent: '#8c9eff',
-    error: '#b71c1c',
-    info: '#2196F3',
+    primary: '#865A17',
+    secondary: '#DE7B27',
+    accent: '#F7B02C',
+    background: '#EACFCE',
+    error: '#DE7B27',
+    info: '#2B5561',
     success: '#4CAF50',
-    warning: '#FFC107'
+    warning: '#DE7B27'
   }
 })
 

@@ -11,14 +11,14 @@
           >
         </v-progress-circular>
      </v-flex>
-     <v-flex xs12 sm6 offset-sm3 class="text-xs-center" v-if="todos == ''">
-       <v-alert type="info" value="true">
+     <v-flex xs12 sm6 offset-sm3 class="text-xs-center" v-if="todos == '' && !loading">
+       <v-alert type="info" value="true" transition="scale-transition" origin="center center">
          Add a new Todo List by clicking on the plus icon in the bottom right hand corner.
        </v-alert>
      </v-flex>
      <v-flex lg4 md6 xs12 v-for="(todoList, itemObjKey) in todos" :key="todoList.id">
-       <v-card>
-         <v-toolbar color="secondary" dark flat card>
+       <v-card transition="scale-transition" origin="center center">
+         <v-toolbar color="primary fontText" dark flat card>
            <v-toolbar-title>{{todoList.title}}</v-toolbar-title>
            <v-spacer></v-spacer>
           <v-btn 
@@ -27,7 +27,7 @@
             <v-icon>delete</v-icon>
           </v-btn>
          </v-toolbar>
-         <v-list>
+         <v-list class="ulList">
             <form class="inputForm" v-on:submit.prevent>
             <input 
                type="text" 
@@ -39,16 +39,16 @@
                :key="todoList.id"
                >
           </form>
-          <v-list-tile avatar v-for="(item, index) in todoList.items" :key="index">
+          <v-list-tile class="liItem" avatar v-for="(item, index) in todoList.items" :key="index">
             <v-list-tile-action>
               <v-checkbox 
-                color="success" 
+                color="secondary" 
                 @click="todoCompleted(todoList.id, index)" 
                 v-model="item.completed"
                 ></v-checkbox>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title 
+              <v-list-tile-title
                 v-text="item.todo"
                 v-show="!item.edit" 
                 v-bind:class="{completedItem: item.completed}"
@@ -202,23 +202,39 @@
 </script>
 
 <style>
-  .todoInput {
+    .todoInput {
       margin-top: 0px;
       font-size: 18px;
       background-color:  #f7f7f7;
       width: 100%;
-      padding: 10px;
+      padding: 16px;
       box-sizing: border-box;
       color: #38321F;
       border: 1px solid rgba(0,0,0,0);
   }
 
-  .inputForm {
-    margin-top: 0px;
+  .todoInput:focus {
+      background: #fff;
+	    border: 3px solid #DE7B27;
+	    outline: none;
+  }
+
+  .ulList {
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
 
   .completedItem {
 	  text-decoration: line-through;
   }
+
+  .fontText{
+    font-family: 'Shadows Into Light', cursive;
+  }
+
+  .liItem:nth-child(2n){
+    background-color: rgba(234, 207, 206, 0.308);
+  }
+
 
 </style>

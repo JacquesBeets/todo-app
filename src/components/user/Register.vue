@@ -7,9 +7,9 @@
    </v-layout>
    <v-layout row>
      <v-flex xs12 sm6 offset-sm3>
-       <v-card>
+       <v-card class="mt-5">
          <v-card-text>
-          <v-container>
+          <v-container transition="scale-transition" origin="center center">
             <form @submit.prevent="onRegister">
               <v-layout row>
                 <v-flex xs 12>
@@ -53,6 +53,7 @@
               <v-layout row>
                 <v-flex xs12>
                   <v-btn
+                  class="primary white--text"
                   :loading="loading"
                   :disabled="loading" 
                   type="submit"

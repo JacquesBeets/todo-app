@@ -28,13 +28,13 @@ export default new Router({
       component: Todos,
       beforeEnter: AuthGuard
     },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: Profile,
-      beforeEnter: AuthGuard
-    },
-    {
+    // { //Will work on this for a future update
+    //   path: '/profile',
+    //   name: 'profile',
+    //   component: Profile,
+    //   beforeEnter: AuthGuard
+    // },
+    { 
       path: '/register',
       name: 'register',
       component: Register
