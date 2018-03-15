@@ -99,6 +99,7 @@ export default {
         if (this.userIsAuthenticated) {
           menuItems = [
             {name: 'Todos', icon: 'done_all', link: '/todos'},
+            {name: 'About', icon: 'thumb_up', link: '/about'}
             // {name: 'Profile', icon: 'perm_identity', link: '/profile'} // Will work on this for future update.
           ]
         }

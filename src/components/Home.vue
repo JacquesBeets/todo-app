@@ -1,6 +1,6 @@
 <template>
 <body>
-    <v-parallax src="https://images.unsplash.com/photo-1483546416237-76fd26bbcdd1?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c58c392d4e9f7dd63cd99ce3327b32a7&auto=format&fit=crop&w=1950&q=80" alt="FirePencil Homepage Background" height="885">
+    <v-parallax src="/static/firebase-background.jpg" alt="FirePencil Homepage Background" height="885">
       <v-container grid-list-md>
         <v-layout
             row
@@ -28,7 +28,6 @@
             </v-btn>
           </v-layout>
       </v-container>
-          
         </v-parallax>
 </body>  
 </template>

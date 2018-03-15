@@ -39,7 +39,7 @@
                :key="todoList.id"
                >
           </form>
-          <v-list-tile class="liItem" avatar v-for="(item, index) in todoList.items" :key="index">
+          <v-list-tile class="liItem animated slideInUp" avatar v-for="(item, index) in todoList.items" :key="index">
             <v-list-tile-action>
               <v-checkbox 
                 color="secondary" 
@@ -49,6 +49,7 @@
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title
+                class="animated slideInLeft"
                 v-text="item.todo"
                 v-show="!item.edit" 
                 v-bind:class="{completedItem: item.completed}"
@@ -202,7 +203,10 @@
 </script>
 
 <style>
-    .todoInput {
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css";
+
+
+  .todoInput {
       margin-top: 0px;
       font-size: 18px;
       background-color:  #f7f7f7;
