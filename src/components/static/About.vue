@@ -12,7 +12,7 @@
             <v-btn class="secondary" icon href="https://github.com/JacquesBeets/todo-app">
               <v-icon large>fa-github</v-icon>
             </v-btn>
-            <v-btn class="white secondary--text" icon>
+            <v-btn class="white secondary--text" icon href="https://www.linkedin.com/in/jacques-beets">
               <v-icon medium>fa-linkedin</v-icon>
             </v-btn>
           </v-card-title>
