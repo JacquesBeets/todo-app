@@ -1,6 +1,6 @@
 <template>
-<v-parallax src="/static/firebase-background.jpg" alt="FirePencil Homepage Background" height="885">
-  <v-container>
+<v-parallax src="/static/firebase-background.jpg" alt="FirePencil Homepage Background" height="1000">
+  <v-container class="mx-5">
     <v-layout>
       <v-flex xs12 sm6 offset-sm3>
         <v-card>
@@ -23,7 +23,7 @@
           <v-card-text>
             <p class="text-lg-left">
               <h4>For Users</h4>
-              FirePencil is a Todo List App that enables you save your todos and access it anywhere so you never forget anything again!
+              FirePencil is a Todo List App that enables you to save your todos and access it anywhere so you never forget anything again!
                But i'ts not only a todo list. You can create lists for anything your heart desires. For example shopping lists, packing lists, camping lists, movies to watch and anything else you can think off!
               You can access, update or change your lists from any device - PC, Phone, Tablet etc.
               View the app in action in the above video!
