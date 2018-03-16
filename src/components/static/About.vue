@@ -22,7 +22,14 @@
           </v-card-media>
           <v-card-text>
             <p class="text-lg-left">
-              FirePencil is a Single Page CRUD Application developed with performance in mind. Even with a slow 3G connection the app remains responsive which is great for user experience. The front-end is built using Vuejs , VueRouter, Vuex and Vuetify while Authentication and Storage is handled by Firebase. The app is also mobile friendly and is great for creating shopping lists and tick the items off while strolling through the shops.
+              <h4>For Users</h4>
+              FirePencil is a Todo List App that enables you save your todos and access it anywhere so you never forget anything again!
+               But i'ts not only a todo list. You can create lists for anything your heart desires. For example shopping lists, packing lists, camping lists, movies to watch and anything else you can think off!
+              You can access, update or change your lists from any device - PC, Phone, Tablet etc.
+              View the app in action in the above video!
+              <br><br>
+              <h4>For Developers</h4>
+              FirePencil is a Single Page CRUD Application developed with performance in mind. Even with a slow 3G connection the app remains responsive which is great for user experience. The front-end is built using Vuejs , VueRouter, Vuex and Vuetify while Authentication and Storage is handled by Firebase. 
               <br><br>
               The source code is available on GitHub by clicking on the icon above or below. You can also follow or contact me via LinkedIn.
             </p>
