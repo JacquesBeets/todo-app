@@ -1,5 +1,5 @@
 <template>
-<!-- <v-parallax src="/static/firebase-background.jpg" alt="FirePencil Homepage Background" height="836"> -->
+<v-parallax src="/static/firebase-background.jpg" alt="FirePencil Homepage Background" height="885">
   <v-container>
     <v-layout>
       <v-flex xs12 sm6 offset-sm3>
@@ -40,7 +40,7 @@
       </v-flex>
     </v-layout>
   </v-container>
-<!-- </v-parallax> -->
+</v-parallax>
 </template>
 
 <style scoped>

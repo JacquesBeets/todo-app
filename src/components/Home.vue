@@ -10,7 +10,7 @@
             justify-center
             class="white--text"
           >
-            <v-icon class="lrgIcon">gesture</v-icon>
+            <v-icon class="lrgIcon" color="accent">gesture</v-icon>
             <h1 class="white--text mb-2 text-xs-center">Welcome to FirePencil</h1>
             <div class="subheading mb-3 text-xs-center">
               <h2>
@@ -47,7 +47,6 @@
 .lrgIcon{
   margin-top: 100px;
   font-size: 10em;
-  color:#fdbb2d;
   text-shadow: 0px 4px 3px rgba(0,0,0,0.3),
 				       0px 8px 13px rgba(0,0,0,0.1),
 				       0px 18px 23px rgba(0,0,0,0.1);

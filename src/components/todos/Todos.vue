@@ -27,7 +27,7 @@
             <v-icon>delete</v-icon>
           </v-btn>
          </v-toolbar>
-         <v-list class="ulList">
+         <v-list class="py-0">
             <form class="inputForm" v-on:submit.prevent>
             <input 
                type="text" 
@@ -221,11 +221,6 @@
       background: #fff;
 	    border: 3px solid #DE7B27;
 	    outline: none;
-  }
-
-  .ulList {
-    padding-top: 0px;
-    padding-bottom: 0px;
   }
 
   .completedItem {

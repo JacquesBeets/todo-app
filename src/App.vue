@@ -43,8 +43,8 @@
       @click.native.stop="sideNav = !sideNav"
       class="hidden-md-and-up"></v-toolbar-side-icon>
       <v-toolbar-title class="fontText">
-        <router-link to="/" tag="span" style="cursor:pointer;">
-        <v-icon class="iconColor">gesture</v-icon>
+        <router-link to="/" tag="span" style="cursor:pointer;" class="white--text">
+        <v-icon color="accent">gesture</v-icon>
           FirePencil
         </router-link>
         </v-toolbar-title>
@@ -121,12 +121,9 @@ export default {
 <style scoped>
 .gradient{
   background-image: linear-gradient(to right, #b21f1f, #fdbb2d); 
-  color: whitesmoke;
 }
 
-.iconColor{
-  color:#fdbb2d;
-}
+
 
 .fontText{
   font-family: 'Shadows Into Light', cursive;
